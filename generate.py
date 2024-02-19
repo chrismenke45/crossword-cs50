@@ -115,7 +115,6 @@ class CrosswordCreator():
         Return True if a revision was made to the domain of `x`; return
         False if no revision was made.
         """
-        
         overlap = self.crossword.overlaps[x,y]
         revised = False
         if overlap:
@@ -151,6 +150,19 @@ class CrosswordCreator():
                 for z in self.crossword.neighbors(x):
                     arcs.put((z, x))
         return True
+    
+    def get_neighbors_overlap_queue(self, var):
+        arcs = Queue()
+        for overlap in self.crossword.overlaps:
+            if overlap[1] == var:
+                arcs.put(overlap)
+        return arcs
+    
+    def make_domains_copy(self):
+        domains_copy = {}
+        for var in self.domains:
+            domains_copy[var] = self.domains[var].copy()
+        return domains_copy
 
     def assignment_complete(self, assignment):
         """
@@ -253,9 +265,21 @@ class CrosswordCreator():
         for value in self.order_domain_values(var, assignment):
             assignment[var] = value
             if self.consistent(assignment):
+                arcs_to_update = self.get_neighbors_overlap_queue(var)
+                domains_before_consistencies = self.make_domains_copy()
+                # print("\n\n*********\n\n")
+                # print(assignment)
+                # print("\n\n*********\n\n")
+                # print(arcs_to_update)
+                # print("\n\n*********\n\n")
+                self.domains[var] = {value}
+                if not self.ac3(arcs_to_update):
+                    self.domains = domains_before_consistencies
                 result = self.backtrack(assignment)
                 if result:
                     return result
+                else:
+                    self.domains = domains_before_consistencies
             del assignment[var]
 
         return None
