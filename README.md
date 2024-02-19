@@ -1,0 +1,1 @@
+This is some machine learning practice with [CS50's Crossword](https://cs50.harvard.edu/ai/2024/projects/3/crossword/). I wrote the backtracking algorithm, all of its subfunctions, and the enforce_node_consistency function. The backtracking function was fun to write and optimize. 
