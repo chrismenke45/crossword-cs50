@@ -93,19 +93,6 @@ class CrosswordCreator():
         self.ac3()
         return self.backtrack(dict())
 
-        # self.enforce_node_consistency()
-        # c = 0
-        # for var in self.domains:
-        #     if c == 0:
-        #         xVar = var
-        #     elif c == 5:
-        #         yVar = var
-        #     c += 1
-        # print(self.domains)
-        # print("\n\n*************\n\n")
-        # self.revise(xVar, yVar)
-        # print(self.domains)
-        # raise NotImplementedError
 
     def enforce_node_consistency(self):
         """
@@ -141,8 +128,6 @@ class CrosswordCreator():
                     revised = True
         
         return revised
-
-
 
     def ac3(self, arcs=None):
         """
@@ -204,9 +189,6 @@ class CrosswordCreator():
             return False
         
         return True
-
-
-        raise NotImplementedError
 
     def order_domain_values(self, var, assignment):
         """
