@@ -267,11 +267,6 @@ class CrosswordCreator():
             if self.consistent(assignment):
                 arcs_to_update = self.get_neighbors_overlap_queue(var)
                 domains_before_consistencies = self.make_domains_copy()
-                # print("\n\n*********\n\n")
-                # print(assignment)
-                # print("\n\n*********\n\n")
-                # print(arcs_to_update)
-                # print("\n\n*********\n\n")
                 self.domains[var] = {value}
                 if not self.ac3(arcs_to_update):
                     self.domains = domains_before_consistencies
